@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: users-api
+  data:
+    mongodb:
+      uri: "mongodb+srv://${mongo.atlas.cluster.user}:${mongo.atlas.cluster.password}@cluster1-zswdi.mongodb.net/<dbname>?retryWrites=true&w=majority"
+server:
+  port: 6890
