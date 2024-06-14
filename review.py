@@ -1,24 +1,31 @@
 import openai
 import os
 import json
+import requests
 
 # Set up OpenAI API key
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-# Read the diff from the pull request
+# Read the event payload to get the PR diff
 with open(os.getenv("GITHUB_EVENT_PATH")) as f:
     event = json.load(f)
 
-# Extract the diff or files changed in the PR
-diff = ... # Extract the relevant information from the event
+# Example to extract the diff URL from the pull request event
+diff_url = event['pull_request']['diff_url']
 
-# Generate review comments using OpenAI
-response = openai.Completion.create(
-    engine="text-davinci-003",
-    prompt=f"Review the following code changes and provide comments:\n\n{diff}",
-    max_tokens=500
+# Fetch the diff content from the URL
+diff_response = requests.get(diff_url)
+diff = diff_response.text
+
+# Generate review comments using the latest OpenAI API method
+response = openai.ChatCompletion.create(
+    model="gpt-3.5-turbo",
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": f"Review the following code changes and provide comments:\n\n{diff}"}
+    ]
 )
 
 # Output the comments
-comments = response.choices[0].text.strip()
+comments = response['choices'][0]['message']['content'].strip()
 print(comments)
