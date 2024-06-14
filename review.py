@@ -1,9 +1,9 @@
-from openai import OpenAI
-
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 import os
 import json
 import requests
+from openai import OpenAI
+
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 # Set up OpenAI API key
 
