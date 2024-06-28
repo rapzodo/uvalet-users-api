@@ -2,7 +2,6 @@ import openai
 import os
 import json
 import requests
-import thinktankclient
 
 # Set up OpenAI API key
 openai.api_key = os.getenv("OPENAI_API_KEY")
