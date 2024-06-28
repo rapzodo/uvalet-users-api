@@ -18,13 +18,13 @@ diff_response = requests.get(diff_url)
 diff = diff_response.text
 
 # Generate review comments using the latest OpenAI API method
- response = openai.ChatCompletion.create(
+response = openai.ChatCompletion.create(
      model="gpt-3.5-turbo",
      messages=[
          {"role": "system", "content": "You are a helpful assistant."},
          {"role": "user", "content": f"Review the following code changes and provide comments:\n\n{diff}"}
      ]
- )
+)
 
 # Output the comments
 comments = response['choices'][0]['message']['content'].strip()
