@@ -9,10 +9,10 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 # Read the event payload to get the PR diff
 with open(os.getenv("GITHUB_EVENT_PATH")) as f:
     event = json.load(f)
-
+print(f"event: {event}")
 # Example to extract the diff URL from the pull request event
 diff_url = event['pull_request']['diff_url']
-
+print(f"diff url : {diff_url}")
 # Fetch the diff content from the URL
 diff_response = requests.get(diff_url)
 diff = diff_response.text
