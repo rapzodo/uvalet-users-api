@@ -26,7 +26,8 @@ def fetch_pr_diff(repo, pr, token):
     diff_response.raise_for_status()
     return diff_response
 
-diff_response = fetch_pr_diff(repo_full_name, pr_number, "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")
+# diff_response = fetch_pr_diff(repo_full_name, pr_number, "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")
+diff_response = requests.get("https://patch-diff.githubusercontent.com/raw/rapzodo/uvalet-users-api/pull/3.diff?token=AA5CRZG2SDCWA4JSMXQLUKLGQMBM4")
 print(f"diff response : {diff_response}")
 
 # Fetch the diff content from the URL
