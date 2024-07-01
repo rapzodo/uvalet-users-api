@@ -19,7 +19,7 @@ diff = diff_response.text
 
 # Generate review comments using the latest OpenAI API method
 response = client.chat.completions.create(
-    model="gpt-4o",
+    model="gpt-4-turbo",
     messages=[
         {"role": "system", "content": "You are a helpful assistant."},
         {"role": "user", "content": f"Review the following code changes and provide comments:\n\n{diff}"}
