@@ -27,5 +27,5 @@ response = openai.ChatCompletion.create(
 )
 
 # Output the comments
-comments = response['choices'][0]['message']['content'].strip()
+comments = response.choices[0].message['content'].strip()
 print(comments)
