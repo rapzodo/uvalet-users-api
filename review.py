@@ -6,7 +6,7 @@ from openai import OpenAI
 # Set up OpenAI API key
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-github_token = os.getenv("GITHUB_TOKEN")
+github_token = os.getenv("GIT_TOKEN")
 repo_full_name = os.getenv("GITHUB_REPOSITORY")
 
 
