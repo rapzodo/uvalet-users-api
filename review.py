@@ -4,7 +4,7 @@ import requests
 from openai import OpenAI
 
 # Set up OpenAI API key
-client = OpenAI(apikey = os.getenv("OPENAI_API_KEY"))
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 # Read the event payload to get the PR diff
 with open(os.getenv("GITHUB_EVENT_PATH")) as f:
