@@ -29,12 +29,20 @@ jobs:
         run: |
           python review.py
 
-      - name: Post Comments
-        uses: peter-evans/create-or-update-comment@v1
+      - name: Post AI Review Comments
+        uses: actions/github-script@v4
         with:
-          token: ${{ secrets.GIT_TOKEN }}
-          repository: ${{ github.repository }}
-          issue-number: ${{ github.event.number }}
-          body: |
-            AI Review Comments:
-            ${{ steps.run.outputs.ai_comments }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const comments = `${{ steps.ai_review.outputs.comments }}`;
+            const repoFullName = process.env.GITHUB_REPOSITORY;
+            const prNumber = process.env.GITHUB_PR_NUMBER;
+            
+            // Post the comment
+            const [owner, repo] = repoFullName.split("/");
+            github.issues.createComment({
+              owner,
+              repo,
+              issue_number: prNumber,
+              body: comments
+            });

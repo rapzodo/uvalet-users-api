@@ -6,15 +6,8 @@ from openai import OpenAI
 # Set up OpenAI API key
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-
-
-with open(os.getenv("GITHUB_EVENT_PATH")) as f:
-    event = json.load(f)
-
-
 github_token = os.getenv("GITHUB_TOKEN")
 repo_full_name = os.getenv("GITHUB_REPOSITORY")
-# Read the event payload to get the PR diff
 pr_number = os.getenv("GITHUB_PR_NUMBER")
 
 # getting the repo and diff through gitHub api
@@ -41,6 +34,22 @@ response = client.chat.completions.create(
     ]
 )
 comments = response.choices[0].message.content
+
+# Post the comments to the pull request
+pr_comments_url = f"https://api.github.com/repos/{repo_full_name}/issues/{pr_number}/comments"
+payload = {'body': comments}
+headers = {'Authorization': f'token {github_token}', 'Accept': 'application/vnd.github.v3+json'}
+response = requests.post(pr_comments_url, headers=headers, json=payload)
+
+# Debugging information
+print(f"Posting comments to {pr_comments_url}")
+print(f"Payload: {json.dumps(payload)}")
+print(f"Response status code: {response.status_code}")
+print(f"Response: {response.json()}")
+
+# Check if the request was successful
+response.raise_for_status()
+print("Comment posted successfully.")
 
 # Output the comments
 print(comments)
