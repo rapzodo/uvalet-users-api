@@ -6,7 +6,7 @@ from openai import OpenAI
 # Set up OpenAI API key
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-github_token = os.getenv("TEMP_GIT_TOKEN")
+github_token = os.getenv("GIT_TOKEN")
 repo_full_name = os.getenv("GITHUB_REPOSITORY")
 
 
@@ -21,13 +21,12 @@ pr_number = event['pull_request']['number']
 def fetch_pr_diff(repo, pr, token):
     pr_diff_url = f"https://api.github.com/repos/{repo}/pulls/{pr}"
     print(f"git info:{repo},{pr},{token}")
-    headers = {'Authorization': f'token {token}', 'Accept': 'application/vnd.github.v3.diff'}
+    headers = {'Authorization': f'Bearer {token}', 'Accept': 'application/vnd.github.v3.diff'}
     diff_response = requests.get(pr_diff_url, headers=headers)
     diff_response.raise_for_status()
     return diff_response
 
-# diff_response = fetch_pr_diff(repo_full_name, pr_number, "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")
-diff_response = requests.get("https://patch-diff.githubusercontent.com/raw/rapzodo/uvalet-users-api/pull/3.diff?token=AA5CRZG2SDCWA4JSMXQLUKLGQMBM4")
+diff_response = fetch_pr_diff(repo_full_name, pr_number, github_token)
 print(f"diff response : {diff_response}")
 
 # Fetch the diff content from the URL
