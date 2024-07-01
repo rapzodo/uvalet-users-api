@@ -17,6 +17,7 @@ diff_url = event['pull_request']['diff_url']
 diff_response = requests.get(diff_url)
 diff = diff_response.text
 
+print(f"diffs>{diff}")
 # Generate review comments using the latest OpenAI API method
 response = client.chat.completions.create(
     model="gpt-3.5-turbo",
