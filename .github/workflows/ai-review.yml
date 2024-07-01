@@ -1,0 +1,37 @@
+name: AI Code Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run AI Code Review
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          python review.py
+
+      - name: Post Comments
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          token: ${{ secrets.GIT_TOKEN }}
+          repository: ${{ github.repository }}
+          issue-number: ${{ github.event.number }}
+          body: |
+            AI Review Comments:
+            ${{ steps.run.outputs.ai_comments }}
