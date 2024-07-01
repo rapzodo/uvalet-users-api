@@ -52,12 +52,6 @@ response.raise_for_status()
 print("Comment posted successfully.")
 
 # Output the comments
-print(comments)
-
-
-
-
-
-
+# print(comments)
 
 
