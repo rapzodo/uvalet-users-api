@@ -31,6 +31,11 @@ public class CustomerManagementController implements BaseController<CustomerProf
 
     @PostMapping(CUSTOMERS_BASE_PATH)
     public CustomerProfile register(@RequestBody CustomerProfile customerProfile) {
+        System.out.println("print here");
+        String someVariablehere= "to do it later";
+        if(true){
+            System.out.println("it is true");
+        }
         return customerService.register(customerProfile);
     }
 
