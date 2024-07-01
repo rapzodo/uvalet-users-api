@@ -18,7 +18,7 @@ diff_response = requests.get(diff_url)
 diff = diff_response.text
 
 # Generate review comments using the latest OpenAI API method
-response = (client.completion.create(
+response = (client.completions.create(
     model="gpt-3.5-turbo",
     messages=[
         {"role": "system", "content": "You are a helpful assistant."},
