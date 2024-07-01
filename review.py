@@ -6,16 +6,16 @@ from openai import OpenAI
 # Set up OpenAI API key
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-github_token = os.getenv("GIT_TOKEN")
-repo_full_name = os.getenv("GITHUB_REPOSITORY")
 
 
 with open(os.getenv("GITHUB_EVENT_PATH")) as f:
     event = json.load(f)
 
 
+github_token = os.getenv("GITHUB_TOKEN")
+repo_full_name = os.getenv("GITHUB_REPOSITORY")
 # Read the event payload to get the PR diff
-pr_number = event['pull_request']['number']
+pr_number = os.getenv("GITHUB_PR_NUMBER")
 
 # getting the repo and diff through gitHub api
 def fetch_pr_diff(repo, pr, token):
