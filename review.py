@@ -14,7 +14,7 @@ pr_number = os.getenv("GITHUB_PR_NUMBER")
 def fetch_pr_diff(repo, pr, token):
     pr_diff_url = f"https://api.github.com/repos/{repo}/pulls/{pr}"
     print(f"git info:{repo},{pr},{token}")
-    headers = {'Authorization': f'Bearer {token}', 'Accept': 'application/vnd.github.v3.diff'}
+    headers = {'Authorization': f'token {token}', 'Accept': 'application/vnd.github.v3.diff'}
     diff_response = requests.get(pr_diff_url, headers=headers)
     diff_response.raise_for_status()
     return diff_response
