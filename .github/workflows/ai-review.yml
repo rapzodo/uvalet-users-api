@@ -21,41 +21,31 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: AI Code Reviewer
-        # uses: rapzodo/uvalet-users-api@master
-        uses: freeedcom/ai-codereviewer@v2.7.0
-        with:
-          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }} # The GITHUB_TOKEN is there by default so you just need to keep it like it is and not necessarily need to add it as secret as it will throw an error. [More Details](https://docs.github.com/en/actions/security-guides/automatic-token-authentication#about-the-github_token-secret)
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          OPENAI_API_MODEL: "gpt-4" # Optional: defaults to "gpt-4"
-          exclude: "**/*.json, **/*.md" # Optional: exclude patterns separated by commas
             
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
 
-      # - name: Set up Python
-      #   uses: actions/setup-python@v2
-      #   with:
-      #     python-version: '3.x'
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
 
-      # - name: Install dependencies
-      #   run: |
-      #     pip install -r requirements.txt
+      - name: Run AI Code Review
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          python review.py
 
-      # - name: Run AI Code Review
-      #   env:
-      #     OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-      #     GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
-      #     GITHUB_REPOSITORY: ${{ github.repository }}
-      #     GITHUB_PR_NUMBER: ${{ github.event.pull_request.number }}
-      #   run: |
-      #     python review.py
-
-#      - name: Post Comments
-#        uses: peter-evans/create-or-update-comment@v1
-#        with:
-#          token: ${{ secrets.GIT_TOKEN }}
-#          repository: ${{ github.repository }}
-#          issue-number: ${{ github.event.number }}
-#          body: |
-#            AI Review Comments:
-#            ${{ steps.ai_review.outputs.comments }}
+      - name: Post Comments
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+         token: ${{ secrets.GIT_TOKEN }}
+         repository: ${{ github.repository }}
+         issue-number: ${{ github.event.number }}
+         body: |
+           AI Review Comments:
+           ${{ steps.ai_review.outputs.comments }}
