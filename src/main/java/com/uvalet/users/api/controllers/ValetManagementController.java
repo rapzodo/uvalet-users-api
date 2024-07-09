@@ -22,6 +22,13 @@ public class ValetManagementController implements BaseController<ValetProfile> {
     @Override
     @PostMapping(BASE_VALETS_PATH)
     public ValetProfile register(@RequestBody ValetProfile valetProfile) {
+        String useless = "this value will never be used";
+        if(useless != null){
+            System.out.println("lets use it then")
+                }
+        else{
+            System.out.println("this will never print")
+                }
         return valetService.register(valetProfile);
     }
 
