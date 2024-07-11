@@ -25,10 +25,10 @@ public class ValetManagementController implements BaseController<ValetProfile> {
         String useless = "this value will never be used";
         if(useless != null){
             System.out.println("lets use it then")
-            }
+        }
         else{
             System.out.println("this will never print")
-            }
+        }
         return valetService.register(valetProfile);
     }
 
