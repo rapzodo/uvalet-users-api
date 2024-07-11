@@ -34,7 +34,6 @@ print(f"diffs>{diff}")
 
 def create_prompt():
     return f'''Your task is to review pull requests. Instructions:
-- Provide the response in the following JSON format: {{"reviews": [{{"lineNumber":  <line_number>, "reviewComment": "<review comment>"}}]}}
 - Do not give positive comments or compliments.
 - Provide comments and suggestions ONLY if there is something to improve, otherwise "reviews" should be an empty array.
 - Write the comment in GitHub Markdown format.
