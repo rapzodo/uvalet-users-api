@@ -41,15 +41,14 @@ def create_prompt():
 - Use the given description only for the overall context and only comment on the code.
 - IMPORTANT: NEVER suggest adding comments to the code.
 
-Review the following code diff {diff} and take the pull request title and description into account when writing the response.
-```'''
+Review the following code diff {diff} and take the pull request title and description into account when writing the response.'''
 prompt = create_prompt()
 # Generate review comments using the latest OpenAI API method
 response = client.chat.completions.create(
     model="gpt-4o",
     messages=[
         {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": {prompt}}
+        {"role": "user", "content": f"{prompt}"}
     ]
 )
 comments = response.choices[0].message.content
