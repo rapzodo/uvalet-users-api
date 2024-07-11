@@ -14,7 +14,6 @@ on:
         - debug
   pull_request:
     types: [opened, synchronize, reopened]
-permissions: write-all
 jobs:
   review:
     runs-on: ubuntu-latest
@@ -34,18 +33,18 @@ jobs:
       - name: Run AI Code Review
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           GITHUB_PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
           python review.py
 
-      - name: Post Comments
-        uses: peter-evans/create-or-update-comment@v1
-        with:
-         token: ${{ secrets.GIT_TOKEN }}
-         repository: ${{ github.repository }}
-         issue-number: ${{ github.event.number }}
-         body: |
-           AI Review Comments:
-           ${{ steps.ai_review.outputs.comments }}
+      # - name: Post Comments
+      #   uses: peter-evans/create-or-update-comment@v1
+      #   with:
+      #    token: ${{ secrets.GITHUB_TOKEN }}
+      #    repository: ${{ github.repository }}
+      #    issue-number: ${{ github.event.number }}
+      #    body: |
+      #      AI Review Comments:
+      #      ${{ steps.ai_review.outputs.comments }}
