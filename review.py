@@ -10,6 +10,11 @@ github_token = os.getenv("GITHUB_TOKEN")
 repo_full_name = os.getenv("GITHUB_REPOSITORY")
 pr_number = os.getenv("GITHUB_PR_NUMBER")
 
+with open(os.getenv("GITHUB_EVENT_PATH")) as f:
+    event = json.load(f)
+
+print(f"event:{event}")
+
 # getting the repo and diff through gitHub api
 def fetch_pr_diff(repo, pr, token):
     pr_diff_url = f"https://api.github.com/repos/{repo}/pulls/{pr}"
