@@ -25,7 +25,6 @@ public class CustomerManagementController implements BaseController<CustomerProf
     public BasicResponse<List<CustomerProfile>> getAll() {
         System.out.println("print here");
         System.out.println("print here");
-        System.out.println("print here");
         return new BasicResponse<>(RequestResult.SUCCESS, customerService.getCustomers());
     }
 
