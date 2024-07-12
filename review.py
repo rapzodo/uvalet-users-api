@@ -36,15 +36,17 @@ print(f"diffs>{diff_response}")
 
 
 def create_prompt():
-    return f'''Your task is to review pull requests. Instructions:
-- Do not give positive comments or compliments.
-- Provide comments and suggestions ONLY if there is something to improve, otherwise "reviews" should be an empty array.
-- Write the comment in GitHub Markdown format.
-- Use the given description only for the overall context and only comment on the code.
-- IMPORTANT: NEVER suggest adding comments to the code.
-- IMPORTANT: APPROVE OR REJECT the PR at the end of the response as "Verdict:".
-
-Review the following code diff {diff} and include de {diff} when writing the response.'''
+    return (f'Your task is to review pull requests. Instructions:\n'
+            f'- Do not give positive comments or compliments.\n'
+            f'- Provide comments and suggestions ONLY if there is something to improve, otherwise "reviews" should be '
+            f'an empty array.\n'
+            f'- Write the comment in GitHub Markdown format.\n'
+            f'- Use the given description only for the overall context and only comment on the code.\n'
+            f'- IMPORTANT: NEVER suggest adding comments to the code.\n'
+            f'- IMPORTANT: APPROVE OR REJECT the PR at the end of the response as "Verdict:".\n'
+            f'\n'
+            f'Review the following code diff {diff} and include the {diff} when writing the response. Also APPROVE OR '
+            f'REJECT the PR at the end of the response as "Verdict:')
 
 
 
