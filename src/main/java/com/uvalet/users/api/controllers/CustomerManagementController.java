@@ -23,19 +23,11 @@ public class CustomerManagementController implements BaseController<CustomerProf
 
     @GetMapping(CUSTOMERS_BASE_PATH)
     public BasicResponse<List<CustomerProfile>> getAll() {
-        System.out.println("print   here ");
-        System.out.println("print here   ");
         return new BasicResponse<>(RequestResult.SUCCESS, customerService.getCustomers());
     }
 
     @PostMapping(CUSTOMERS_BASE_PATH)
     public CustomerProfile register(@RequestBody CustomerProfile customerProfile) {
-        System.out.println("print here ");
-        String someVariablehere= "to do it later";
-        while(true){};
-        if(true){
-            System.out.println("it is true");
-        }
         return customerService.register(customerProfile);
     }
 
