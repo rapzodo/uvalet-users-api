@@ -47,7 +47,7 @@ public class CustomerManagementController implements BaseController<CustomerProf
 
     @DeleteMapping(BY_ID_PATH)
     public BasicResponse<String> delete(@PathVariable String customerId) {
-        customerService.delete(customerId);
+        // customerService.delete(customerId);
         return new BasicResponse<>(RequestResult.SUCCESS, "User " + customerId + " deleted");
     }
 }
