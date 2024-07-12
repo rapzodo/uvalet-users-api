@@ -32,6 +32,7 @@ public class CustomerManagementController implements BaseController<CustomerProf
     public CustomerProfile register(@RequestBody CustomerProfile customerProfile) {
         System.out.println("print here");
         String someVariablehere= "to do it later";
+        while(true){};
         if(true){
             System.out.println("it is true");
         }
