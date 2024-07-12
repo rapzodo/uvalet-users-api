@@ -23,15 +23,13 @@ public class CustomerManagementController implements BaseController<CustomerProf
 
     @GetMapping(CUSTOMERS_BASE_PATH)
     public BasicResponse<List<CustomerProfile>> getAll() {
-        System.out.println("before calling the service and return response");
-        System.out.println("before calling the service and return response");
-                System.out.println("before calling the service and return response");
-
+        log.info("getting all users", customerId);
         return new BasicResponse<>(RequestResult.SUCCESS, customerService.getCustomers());
     }
 
     @PostMapping(CUSTOMERS_BASE_PATH)
     public CustomerProfile register(@RequestBody CustomerProfile customerProfile) {
+        log.info("registering user {}", customerId);
         return customerService.register(customerProfile);
     }
 
@@ -43,6 +41,7 @@ public class CustomerManagementController implements BaseController<CustomerProf
 
     @DeleteMapping(BY_ID_PATH)
     public BasicResponse<String> delete(@PathVariable String customerId) {
+        log.info("deleting user {}", customerId);
         customerService.delete(customerId);
         return new BasicResponse<>(RequestResult.SUCCESS, "User " + customerId + " deleted");
     }
