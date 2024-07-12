@@ -44,8 +44,8 @@ Review the following code diff {diff} and take the pull request title and descri
 
 f"Git diff to review:\n\n"
         f"```diff\n"
-        f"{diff_response.content}\n"
-        f"{''.join(f'{c.ln if c.ln else c.ln2} {c.content}\n' for c in diff_response.content)}"'''
+        f"{diff}\n"
+        f"{''.join(f'{c.ln if c.ln else c.ln2} {c.content}\n' for c in diff)}"'''
 
 prompt = create_prompt()
 # Generate review comments using the latest OpenAI API method
