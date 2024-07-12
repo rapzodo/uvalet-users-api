@@ -42,8 +42,9 @@ def create_prompt():
 - Write the comment in GitHub Markdown format.
 - Use the given description only for the overall context and only comment on the code.
 - IMPORTANT: NEVER suggest adding comments to the code.
+- IMPORTANT: APPROVE OR REJECT the PR at the end of the response as "Verdict:".
 
-Review the following code diff {diff} and include de diffs when writing the response.'''
+Review the following code diff {diff} and include de {diff} when writing the response.'''
 
 
 
