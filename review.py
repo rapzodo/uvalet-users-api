@@ -16,6 +16,7 @@ with open(os.getenv("GITHUB_EVENT_PATH")) as f:
 print(f"event:{event['pull_request']['diff_url']}")
 print(f"event:{event['pull_request']['number']}")
 
+
 # getting the repo and diff through gitHub api
 def fetch_pr_diff(repo, pr, token):
     pr_diff_url = f"https://api.github.com/repos/{repo}/pulls/{pr}"
@@ -25,6 +26,7 @@ def fetch_pr_diff(repo, pr, token):
     diff_response.raise_for_status()
     return diff_response
 
+
 diff_response = fetch_pr_diff(repo_full_name, pr_number, github_token)
 print(f"diff response : {diff_response}")
 
@@ -32,11 +34,11 @@ print(f"diff response : {diff_response}")
 diff = diff_response.text
 print(f"diffs>{diff_response}")
 
+
 def create_prompt():
     return f'''Your task is to review pull requests. Instructions:
 - Do not give positive comments or compliments.
 - Provide comments and suggestions ONLY if there is something to improve, otherwise "reviews" should be an empty array.
-- Write the comment in GitHub Markdown format.
 - Use the given description only for the overall context and only comment on the code.
 - IMPORTANT: NEVER suggest adding comments to the code.
 
@@ -45,6 +47,7 @@ Review the following code diff {diff} and take the pull request title and descri
 f"Git diff to review:\n\n"
         f"```diff\n"
         f"{diff}\n"'''
+
 
 prompt = create_prompt()
 # Generate review comments using the latest OpenAI API method
@@ -76,5 +79,3 @@ print("Comment posted successfully.")
 
 # Output the comments
 # print(comments)
-
-
