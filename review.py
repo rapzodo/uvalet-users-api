@@ -30,7 +30,7 @@ print(f"diff response : {diff_response}")
 
 # Fetch the diff content from the URL
 diff = diff_response.text
-print(f"diffs>{diff}")
+print(f"diffs>{diff_response}")
 
 def create_prompt():
     return f'''Your task is to review pull requests. Instructions:
@@ -40,7 +40,13 @@ def create_prompt():
 - Use the given description only for the overall context and only comment on the code.
 - IMPORTANT: NEVER suggest adding comments to the code.
 
-Review the following code diff {diff} and take the pull request title and description into account when writing the response.'''
+Review the following code diff {diff} and take the pull request title and description into account when writing the response.
+
+f"Git diff to review:\n\n"
+        f"```diff\n"
+        f"{diff_response.content}\n"
+        f"{''.join(f'{c.ln if c.ln else c.ln2} {c.content}\n' for c in diff_response.changes)}"'''
+
 prompt = create_prompt()
 # Generate review comments using the latest OpenAI API method
 response = client.chat.completions.create(
@@ -48,6 +54,7 @@ response = client.chat.completions.create(
     messages=[
         {"role": "system", "content": "You are a helpful assistant."},
         {"role": "user", "content": f"{prompt}"}
+        # {"role": "user", "content": f"Review the following code changes and provide comments:\n\n{diff}"}
     ]
 )
 comments = response.choices[0].message.content
