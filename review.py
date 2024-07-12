@@ -45,7 +45,7 @@ def create_prompt():
             f'- IMPORTANT: NEVER suggest adding comments to the code.\n'
             f'- IMPORTANT: APPROVE OR REJECT the PR at the end of the response as "Verdict:".\n'
             f'\n'
-            f'Review the following code diff {diff} and include the {diff} when writing the response. Also APPROVE OR '
+            f'Review the following code diff {diff} and APPROVE OR '
             f'REJECT the PR at the end of the response as "Verdict:')
 
 
