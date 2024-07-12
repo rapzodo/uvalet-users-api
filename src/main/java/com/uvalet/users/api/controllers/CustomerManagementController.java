@@ -24,7 +24,7 @@ public class CustomerManagementController implements BaseController<CustomerProf
     @GetMapping(CUSTOMERS_BASE_PATH)
     public BasicResponse<List<CustomerProfile>> getAll() {
         System.out.println("print here ");
-        System.out.println("print here ");
+        System.out.println("print here  ");
         return new BasicResponse<>(RequestResult.SUCCESS, customerService.getCustomers());
     }
 
