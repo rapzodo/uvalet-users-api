@@ -52,6 +52,9 @@ public class DefaultCustomerServiceTest {
     }
 
     @Test
+    public void shouldTestAiReview(){ System.out.println("everything is ok")}
+    
+    @Test
     public void shouldGetAllCustomers(){
         service.getCustomers();
         verify(customerRepository, only()).findAll();
