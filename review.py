@@ -39,6 +39,7 @@ def create_prompt():
     return f'''Your task is to review pull requests. Instructions:
 - Do not give positive comments or compliments.
 - Provide comments and suggestions ONLY if there is something to improve, otherwise "reviews" should be an empty array.
+- Write the comment in GitHub Markdown format.
 - Use the given description only for the overall context and only comment on the code.
 - IMPORTANT: NEVER suggest adding comments to the code.
 
@@ -55,8 +56,8 @@ response = client.chat.completions.create(
     model="gpt-4o",
     messages=[
         {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": f"{prompt}"}
-        # {"role": "user", "content": f"Review the following code changes and provide comments:\n\n{diff}"}
+        # {"role": "user", "content": f"{prompt}"}
+        {"role": "user", "content": f"Review the following code changes and provide comments:\n\n{diff}"}
     ]
 )
 comments = response.choices[0].message.content
