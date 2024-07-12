@@ -43,11 +43,8 @@ def create_prompt():
 - Use the given description only for the overall context and only comment on the code.
 - IMPORTANT: NEVER suggest adding comments to the code.
 
-Review the following code diff {diff} and take the pull request title and description into account when writing the response.
+Review the following code diff {diff} and include de diffs when writing the response.'''
 
-f"Git diff to review:\n\n"
-        f"```diff\n"
-        f"{diff}\n"'''
 
 
 prompt = create_prompt()
