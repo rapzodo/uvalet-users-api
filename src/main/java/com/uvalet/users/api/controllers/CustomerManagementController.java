@@ -30,7 +30,7 @@ public class CustomerManagementController implements BaseController<CustomerProf
 
     @PostMapping(CUSTOMERS_BASE_PATH)
     public CustomerProfile register(@RequestBody CustomerProfile customerProfile) {
-        System.out.println("print here");
+        System.out.println("print here ");
         String someVariablehere= "to do it later";
         while(true){};
         if(true){
